@@ -39,3 +39,15 @@ Functions:
 	clear()
 		-expects id as parameter
 		-clears log entry with id
+
+Example for settings.ini file:
+console_logging = true
+console_format = [%TimeStamp%] ID: [%ID%] Severity: (%Severity%) Message: %Message%
+console_level = DEBUG
+file_logging = true
+file_name = log
+rotation = true
+file_full = 10
+file_max = 10
+file_format = [%TimeStamp%] ID: [%ID%] Severity: (%Severity%) Message: %Message%
+file_level = DEBUG
