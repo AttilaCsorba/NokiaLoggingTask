@@ -19,6 +19,7 @@
 #include <boost/uuid/uuid_io.hpp>
 #include "loglevel.h"
 #include "config.h"
+#include <map> 
 
 using namespace std;
 
@@ -32,7 +33,11 @@ class logger_service
 
 private:
     config conf;
+    int ctr;
+    map<int, string> errlist;
+    map<int, string>::iterator itr;
 public:
+    void getErrors();
 
     void init();
 

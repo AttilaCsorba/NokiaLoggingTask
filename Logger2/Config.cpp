@@ -21,8 +21,11 @@ namespace po = boost::program_options;
 
 config::config()
 {
-	//init();
-	//trace();
+
+}
+config::~config()
+{
+
 }
 
 void config::read_settings(po::options_description& desc,

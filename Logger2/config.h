@@ -27,6 +27,7 @@ private:
 	string file_level;
 public:
 	config();
+	~config();
 	void init();
 	bool getconsole_logging() { return console_logging; };
 	string getconsole_format() { return console_format; };
