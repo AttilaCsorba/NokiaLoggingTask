@@ -27,7 +27,6 @@ namespace src = boost::log::sources;
 namespace sinks = boost::log::sinks;
 namespace keywords = boost::log::keywords;
 namespace attrs = boost::log::attributes;
-const string g_format = "[%TimeStamp%] ID: [%ID%] Severity: (%Severity%) Message: %Message%";
 class logger_service
 {
 
