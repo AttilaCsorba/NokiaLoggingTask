@@ -51,3 +51,5 @@ file_full = 10
 file_max = 10
 file_format = [%TimeStamp%] ID: [%ID%] Severity: (%Severity%) Message: %Message%
 file_level = DEBUG
+
+The main.cpp file is an example of the usage of the logging library.
