@@ -1,4 +1,0 @@
-[2020-07-16 07:54:54.416335] ID: [1] Severity: (2) Message: test1
-[2020-07-16 07:54:54.418329] ID: [2] Severity: (3) Message: test2
-[2020-07-16 07:54:54.418329] ID: [3] Severity: (3) Message: test3
-[2020-07-16 07:54:54.420324] ID: [4] Severity: (3) Message: ID error
