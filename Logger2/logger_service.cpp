@@ -1,17 +1,10 @@
 #include "logger_service.h"
 
 
-logger_service::logger_service(config c) {
-    console_level = c.getconsole_level();
-    console_logging = c.getconsole_logging();
-    file_logging = c.getfile_logging();
-    console_format = c.getconsole_format();
-    file_name = c.getfile_name();
-    rotation = c.getrotation();
-    file_full = c.getfile_full();
-    file_max = c.getfile_max();
-    file_format = c.getfile_format();
-    file_level = c.getfile_level();
+logger_service::logger_service(config conf) {
+    c = conf;
+    c.init();
+    string file_name = c.getfile_name();
     init(file_name);
 }
 
@@ -22,10 +15,10 @@ void logger_service::init(string file)
     core->add_global_attribute("TimeStamp", boost::log::attributes::local_clock());
     core->add_global_attribute("ID", attrs::counter< unsigned int >(1));
     boost::log::register_simple_formatter_factory< loglevel, char >("Severity");
-    if(console_logging)
-        logging::add_console_log(std::cout, boost::log::keywords::format = console_format);
+    if(c.getconsole_logging())
+        logging::add_console_log(std::cout, boost::log::keywords::format = "[%TimeStamp%] ID: [%ID%] Severity: (%Severity%) Message: %Message%");
 
-    if (file_logging) {
+    //if (file_logging) {
         /*logging::add_file_log
         (
             keywords::file_name = file + ".txt",
@@ -34,11 +27,12 @@ void logger_service::init(string file)
             keywords::max_files = 10,
             keywords::format = ;
         );*/
-    }
+    //}
 }
 
 void logger_service::log(string message, loglevel level)
 {
+    string console_level = c.getconsole_level();
     loglevel current_level1;
     if (console_level == "DEBUG")
         current_level1 = loglevel::DEBUG;

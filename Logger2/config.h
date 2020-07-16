@@ -14,7 +14,6 @@ class config
 private:
 	void read_settings(po::options_description& desc,
 		po::variables_map& vm);
-	void init();
 	void trace();
 	bool console_logging;
 	string console_format;
@@ -28,6 +27,7 @@ private:
 	string file_level;
 public:
 	config();
+	void init();
 	bool getconsole_logging() { return console_logging; };
 	string getconsole_format() { return console_format; };
 	string getconsole_level() { return console_level; };

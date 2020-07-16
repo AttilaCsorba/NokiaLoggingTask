@@ -7,22 +7,22 @@
 const string Constants::settings_file = "settings.ini";
 
 const char Constants::console_logging[16] = "console_logging";
-const char Constants::console_format[50] = "console_format";
+const char Constants::console_format[16] = "console_format";
 const char Constants::console_level[16] = "console_level";
 const char Constants::file_logging[16] = "file_logging";
 const char Constants::file_name[16] = "file_name";
 const char Constants::rotation[16] = "rotation";
 const char Constants::file_full[16] = "file_full";
 const char Constants::file_max[16] = "file_max";
-const char Constants::file_format[50] = "file_format";
+const char Constants::file_format[16] = "file_format";
 const char Constants::file_level[16] = "file_level";
 
 namespace po = boost::program_options;
 
 config::config()
 {
-	init();
-	trace();
+	//init();
+	//trace();
 }
 
 void config::read_settings(po::options_description& desc,

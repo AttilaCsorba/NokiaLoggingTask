@@ -30,19 +30,10 @@ namespace attrs = boost::log::attributes;
 const string g_format = "[%TimeStamp%] ID: [%ID%] Severity: (%Severity%) Message: %Message%";
 class logger_service
 {
-private:
-    string console_level;
-    bool console_logging;
-    bool file_logging;
-    string console_format;
-    string file_name;
-    bool rotation;
-    int file_full;
-    int file_max;
-    string file_format;
-    string file_level;
 
 public:
+    config c;
+
     void init(string file);
 
     logger_service(config c);
