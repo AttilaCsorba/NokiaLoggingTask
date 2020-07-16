@@ -33,7 +33,7 @@ class logger_service
 public:
     config c;
 
-    void init(string file);
+    void init();
 
     logger_service();
 

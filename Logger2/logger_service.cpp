@@ -3,11 +3,10 @@
 
 logger_service::logger_service() {
     c.init();
-    string file_name = c.getfile_name();
-    init(file_name);
+    init();
 }
 
-void logger_service::init(string file)
+void logger_service::init()
 {
     boost::log::add_common_attributes();
     boost::shared_ptr< logging::core > core = logging::core::get();
@@ -15,18 +14,21 @@ void logger_service::init(string file)
     core->add_global_attribute("ID", attrs::counter< unsigned int >(1));
     boost::log::register_simple_formatter_factory< loglevel, char >("Severity");
     if(c.getconsole_logging())
-        logging::add_console_log(std::cout, boost::log::keywords::format = "[%TimeStamp%] ID: [%ID%] Severity: (%Severity%) Message: %Message%");
+        logging::add_console_log(std::cout, boost::log::keywords::format = c.getconsole_format());
 
-    //if (file_logging) {
-        /*logging::add_file_log
+    if (c.getfile_logging()) {
+        string file = c.getfile_name();
+        int rotationsize = c.getfile_full();
+        int maxfiles = c.getfile_max();
+        logging::add_file_log
         (
             keywords::file_name = file + ".txt",
             keywords::target_file_name = file + "%N.txt",
-            keywords::rotation_size = 10 * 1024 * 1024,
-            keywords::max_files = 10,
-            keywords::format = ;
-        );*/
-    //}
+            keywords::rotation_size = rotationsize * 1024 * 1024,
+            keywords::max_files = maxfiles,
+            keywords::format = c.getfile_format()
+        );
+    }
 }
 
 void logger_service::log(string message, loglevel level)
