@@ -30,8 +30,9 @@ namespace attrs = boost::log::attributes;
 class logger_service
 {
 
+private:
+    config conf;
 public:
-    config c;
 
     void init();
 

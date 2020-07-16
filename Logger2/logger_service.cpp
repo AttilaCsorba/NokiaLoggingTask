@@ -2,7 +2,7 @@
 
 
 logger_service::logger_service() {
-    c.init();
+    conf.init();
     init();
 }
 
@@ -13,27 +13,27 @@ void logger_service::init()
     core->add_global_attribute("TimeStamp", boost::log::attributes::local_clock());
     core->add_global_attribute("ID", attrs::counter< unsigned int >(1));
     boost::log::register_simple_formatter_factory< loglevel, char >("Severity");
-    if(c.getconsole_logging())
-        logging::add_console_log(std::cout, boost::log::keywords::format = c.getconsole_format());
+    if(conf.getconsole_logging())
+        logging::add_console_log(std::cout, boost::log::keywords::format = conf.getconsole_format());
 
-    if (c.getfile_logging()) {
-        string file = c.getfile_name();
-        int rotationsize = c.getfile_full();
-        int maxfiles = c.getfile_max();
+    if (conf.getfile_logging()) {
+        string file = conf.getfile_name();
+        int rotationsize = conf.getfile_full();
+        int maxfiles = conf.getfile_max();
         logging::add_file_log
         (
             keywords::file_name = file + ".txt",
             keywords::target_file_name = file + "%N.txt",
             keywords::rotation_size = rotationsize * 1024 * 1024,
             keywords::max_files = maxfiles,
-            keywords::format = c.getfile_format()
+            keywords::format = conf.getfile_format()
         );
     }
 }
 
 void logger_service::log(string message, loglevel level)
 {
-    string console_level = c.getconsole_level();
+    string console_level = conf.getconsole_level();
     loglevel current_level1;
     if (console_level == "DEBUG")
         current_level1 = loglevel::DEBUG;

@@ -1,0 +1,3 @@
+[2020-07-16 04:52:26.505882] ID: [1] Severity: (2) Message: Hello
+[2020-07-16 04:52:26.507877] ID: [2] Severity: (0) Message: valami
+[2020-07-16 04:52:26.508887] ID: [3] Severity: (3) Message: some
