@@ -18,6 +18,7 @@
 #include <boost/uuid/uuid_generators.hpp> 
 #include <boost/uuid/uuid_io.hpp>
 #include "loglevel.h"
+#include "config.h"
 
 using namespace std;
 
@@ -27,7 +28,7 @@ namespace sinks = boost::log::sinks;
 namespace keywords = boost::log::keywords;
 namespace attrs = boost::log::attributes;
 const string g_format = "[%TimeStamp%] ID: [%ID%] Severity: (%Severity%) Message: %Message%";
-class logger
+class logger_service
 {
 private:
     string console_level;
@@ -44,7 +45,7 @@ private:
 public:
     void init(string file);
 
-    logger(string file);
+    logger_service(config c);
 
     void log(string message, loglevel level);
 };

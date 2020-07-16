@@ -3,8 +3,11 @@
 
 int main(int, char* [])
 {
-    logger log1("log");
-    log1.log("Hello",loglevel::WARNING);
+    config c;
+    logger_service logger(c);
+    logger.log("Hello", loglevel::WARNING);
+    logger.log("valami", loglevel::DEBUG);
+    logger.log("some", loglevel::ERROR);
     
     return 0;
 }

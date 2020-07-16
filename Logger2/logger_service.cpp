@@ -1,8 +1,7 @@
 #include "logger_service.h"
-#include "config.h"
 
-logger::logger(string file) {
-    config c;
+
+logger_service::logger_service(config c) {
     console_level = c.getconsole_level();
     console_logging = c.getconsole_logging();
     file_logging = c.getfile_logging();
@@ -13,10 +12,10 @@ logger::logger(string file) {
     file_max = c.getfile_max();
     file_format = c.getfile_format();
     file_level = c.getfile_level();
-    init(file);
+    init(file_name);
 }
 
-void logger::init(string file)
+void logger_service::init(string file)
 {
     boost::log::add_common_attributes();
     boost::shared_ptr< logging::core > core = logging::core::get();
@@ -38,7 +37,7 @@ void logger::init(string file)
     }
 }
 
-void logger::log(string message, loglevel level)
+void logger_service::log(string message, loglevel level)
 {
     loglevel current_level1;
     if (console_level == "DEBUG")
