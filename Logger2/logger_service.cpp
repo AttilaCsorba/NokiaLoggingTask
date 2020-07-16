@@ -2,11 +2,16 @@
 #include <iostream> 
 #include <iterator> 
 
+struct MyException : public exception {
+    const char* what() const throw () {
+        return "id Error";
+    }
+};
 
 logger_service::logger_service() {
     conf.init();
     init();
-    ctr = 1;
+    lineid = 1;
 }
 
 void logger_service::init()
@@ -23,6 +28,7 @@ void logger_service::init()
         logging::add_file_log
         (
             keywords::file_name = conf.getfile_name() + ".txt",
+
             keywords::target_file_name = conf.getfile_name() + "%N.txt",
             keywords::rotation_size = conf.getfile_full() * 1024 * 1024,
             keywords::max_files = conf.getfile_max() ,
@@ -33,30 +39,47 @@ void logger_service::init()
 
 void logger_service::log(string message, loglevel level)
 {
-    /*string console_level = conf.getconsole_level();
-    loglevel curr_level;
+    string console_level = conf.getconsole_level();
+    loglevel cons_level;
     if (console_level == "DEBUG")
-        curr_level = loglevel::DEBUG;
+        cons_level = loglevel::DEBUG;
     else if (console_level == "INFO")
-        curr_level = loglevel::INFO;
+        cons_level = loglevel::INFO;
     else if (console_level == "WARNING")
-        curr_level = loglevel::WARNING;
+        cons_level = loglevel::WARNING;
     else if (console_level == "ERROR")
-        curr_level = loglevel::ERROR;*/
+        cons_level = loglevel::ERROR;
 
-    if (level = loglevel::ERROR) {
-        errlist.insert(pair<int, string>(ctr, "ERROR"));
+    if (level == loglevel::ERROR) {
+        errlist.insert(pair<int, string>(lineid, message));
     }
 
-   // if (level >= curr_level) {
+   if (level >= cons_level) {
         src::severity_logger<loglevel> slg;
         BOOST_LOG_SEV(slg, level) << message;
-    //}
-    ctr++;
+    }
+    lineid++;
 }
 
     void logger_service::getErrors() {
+        cout << "\n" << "Listing all errors:\n";
         for (const auto& x : errlist) {
             std::cout << x.first << ": " << x.second << "\n";
+        }
+    }
+
+    void logger_service::clear(int id) {
+        try {
+            if (errlist.erase(id) == 0)
+                throw MyException();
+            else
+                cout << "\nError with id: " << id << " has been deleted!\n";
+        }
+        catch (MyException & e) {
+            std::cout << "\nNo error found with this id\n" << std::endl;
+            std::cout << e.what() << std::endl;
+            loglevel level = loglevel::ERROR;
+            src::severity_logger<loglevel> slg;
+            BOOST_LOG_SEV(slg, level) << "ID error";
         }
     }

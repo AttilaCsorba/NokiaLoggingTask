@@ -33,11 +33,13 @@ class logger_service
 
 private:
     config conf;
-    int ctr;
+    int lineid;
     map<int, string> errlist;
     map<int, string>::iterator itr;
 public:
     void getErrors();
+
+    void clear(int id);
 
     void init();
 

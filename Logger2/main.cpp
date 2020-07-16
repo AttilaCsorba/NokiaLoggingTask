@@ -8,6 +8,7 @@ int main(int, char* [])
     logger.log("valami", loglevel::DEBUG);
     logger.log("some", loglevel::ERROR);
     logger.getErrors();
+    logger.clear(3);
     
     return 0;
 }
