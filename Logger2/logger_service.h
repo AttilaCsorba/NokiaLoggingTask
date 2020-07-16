@@ -35,7 +35,7 @@ public:
 
     void init(string file);
 
-    logger_service(config c);
+    logger_service();
 
     void log(string message, loglevel level);
 };

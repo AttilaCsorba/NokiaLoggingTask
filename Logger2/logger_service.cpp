@@ -1,8 +1,7 @@
 #include "logger_service.h"
 
 
-logger_service::logger_service(config conf) {
-    c = conf;
+logger_service::logger_service() {
     c.init();
     string file_name = c.getfile_name();
     init(file_name);
