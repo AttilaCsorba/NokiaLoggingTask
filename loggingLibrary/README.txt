@@ -1,6 +1,12 @@
 This logging library works using Boost libraries, more precisely 
 boost_1_73_0-msvc-14.2-32.
 
+You need to add the boost folder (for example C:\local\boost_1_73_0) 
+to the c++ additional directories in the visual studio solution, and 
+the boost lib folder (C:\local\boost_1_73_0\lib32-msvc-14.2) to the soulitons linker as additional directory.
+
+Additionally you need to set the solutions platfomr to x86.
+
 Configuration rules:
 	console_logging 
 		-enables/disables console logging
