@@ -14,6 +14,7 @@
 #include <boost/log/attributes/attribute_cast.hpp>
 #include <boost/log/attributes/attribute_value.hpp>
 #include <boost/log/attributes/constant.hpp>
+#include <boost/core/null_deleter.hpp>
 #include <boost/uuid/uuid.hpp>
 #include <boost/uuid/uuid_generators.hpp> 
 #include <boost/uuid/uuid_io.hpp>
@@ -32,6 +33,7 @@ class logger_service
 {
 
 private:
+    typedef sinks::synchronous_sink<sinks::text_ostream_backend> text_sink;
     config conf;
     int lineid;
     map<int, string> errlist;
@@ -42,6 +44,8 @@ public:
     void clear(int id);
 
     void init();
+
+    void init_term();
 
     logger_service();
 

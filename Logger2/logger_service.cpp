@@ -39,15 +39,20 @@ void logger_service::init()
 
 void logger_service::log(string message, loglevel level)
 {
-    string console_level = conf.getconsole_level();
+    string filter_level;
+    if (conf.getconsole_logging())
+        filter_level = conf.getconsole_level();
+    else
+        filter_level = conf.getfile_level();
+
     loglevel cons_level;
-    if (console_level == "DEBUG")
+    if (filter_level == "DEBUG")
         cons_level = loglevel::DEBUG;
-    else if (console_level == "INFO")
+    else if (filter_level == "INFO")
         cons_level = loglevel::INFO;
-    else if (console_level == "WARNING")
+    else if (filter_level == "WARNING")
         cons_level = loglevel::WARNING;
-    else if (console_level == "ERROR")
+    else if (filter_level == "ERROR")
         cons_level = loglevel::ERROR;
 
     if (level == loglevel::ERROR) {
@@ -58,7 +63,7 @@ void logger_service::log(string message, loglevel level)
         src::severity_logger<loglevel> slg;
         BOOST_LOG_SEV(slg, level) << message;
     }
-    lineid++;
+   lineid++;
 }
 
     void logger_service::getErrors() {
@@ -73,7 +78,7 @@ void logger_service::log(string message, loglevel level)
             if (errlist.erase(id) == 0)
                 throw MyException();
             else
-                cout << "\nError with id: " << id << " has been deleted!\n";
+                cout << "\nError with id: " << id << " has been cleared!\n";
         }
         catch (MyException & e) {
             std::cout << "\nNo error found with this id\n" << std::endl;
@@ -81,5 +86,7 @@ void logger_service::log(string message, loglevel level)
             loglevel level = loglevel::ERROR;
             src::severity_logger<loglevel> slg;
             BOOST_LOG_SEV(slg, level) << "ID error";
+            errlist.insert(pair<int, string>(lineid, "ID error"));
+            lineid++;
         }
     }
